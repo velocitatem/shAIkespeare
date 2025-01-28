@@ -62,3 +62,7 @@ To run the available tests in `tests.py`, use the following command:
 ```bash
 pytest tests.py
 ```
+
+## 5 & 6 Testing various sized grams:
+Results from survey added to github link:
+![Figure_1](https://github.com/user-attachments/assets/705caf4a-5e7a-4404-87c6-47de1c44a3f8)
