@@ -1,4 +1,4 @@
-# Sh_AI_kespeare
+# Sh _AI_ kespeare
 
 This is an implementation of an n-gram text generator for shakespears work.
 
