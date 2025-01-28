@@ -1,5 +1,7 @@
 # Sh_AI_kespeare
 
+This is an implementation of an n-gram text generator for shakespears work.
+
 ## Installation
 
 To install the required dependencies, run the following command:
@@ -36,23 +38,15 @@ Here is an example of generating text using the model:
 ```python
 from shAIkespeare.generator import load_data, create_grams, create_ngram_counts, create_ngram_probs, generate_text_from_ngram
 
-# Load the data
 text = load_data()
-
-# Create a list of grams
 grams = create_grams(text, 2)
-
-# Create a dictionary of ngram counts
 ngram_counts = create_ngram_counts(grams)
-
-# Create a dictionary of ngram probabilities
 ngram_probs = create_ngram_probs(ngram_counts)
 
 # Generate text from the ngram ('to', 'be')
 ngram = ('to', 'be')
 num_words = 10
 generated_text = generate_text_from_ngram(ngram, num_words, ngram_probs, 2)
-print(f"Generated text: {generated_text}")
 ```
 
 Expected output:
@@ -66,5 +60,5 @@ Generated text: to be or not to be that is the question
 To run the available tests in `tests.py`, use the following command:
 
 ```bash
-pytest
+pytest tests.py
 ```
