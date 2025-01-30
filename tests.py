@@ -1,6 +1,8 @@
 """
 We will test our methods here.
 """
+
+#     next_token_probs = from_ngram_to_next_token_probs[ngram]
 import pytest
 from shAIkespeare.generator import (
     load_data,

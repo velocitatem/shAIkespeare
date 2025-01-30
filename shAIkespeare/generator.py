@@ -2,13 +2,11 @@
 """
 shAIkespeare:
 In this assignment, you will build a text generation model that works with 2-grams/3-grams/4-grams to imitate the style of William Shakespeare. Your task is to implement various functions that will help in generating text based on ngrams, trigrams and quadgrams.
-
 """
 import nltk
 from nltk.tokenize import RegexpTokenizer
 
 # Data Preparation: We load the works of William Shakespeare from the nltk corpus and preprocess the text.
-# transforamtions: lower_case, punct removal, tokenization
 # Create a list of grams
 GRAM_SIZE = 2 # instructed to use ngrams but just in case we want to change it to trigrams or quadgrams
 PHRASE = ["to", "be", "or", "not", "to", "be"]
@@ -18,7 +16,7 @@ def load_data() -> list:
     Load the works of William Shakespeare from the nltk corpus and preprocess the text.
     """
     # Load the works of William Shakespeare from the nltk corpus
-    shakespeare = nltk.corpus.gutenberg.raw('shakespeare-hamlet.txt')
+    shakespeare = nltk.corpus.gutenberg.raw('shakespeare-hamlet.txt') # load the text of Hamlet which is the most interesting one imo
     shakespeare = shakespeare.lower().replace('\n', ' ').replace('\r', ' ').replace('  ', ' ') # remove newlines and carriage returns
     tokenizer = RegexpTokenizer(r'\w+') # remove punctuation and special characters - regex to match words only
     shakespeare = tokenizer.tokenize(shakespeare)
@@ -38,15 +36,12 @@ def create_grams(tokens, gram_size=GRAM_SIZE) -> list:
     return grams
 
 def create_ngram_counts(ngrams) -> dict:
-    """
-    Create a dictionary of ngram counts.
-    """
     from_ngram_to_next_token_counts = {}
     for i in range(len(ngrams) - 1):
-        ngram = tuple(ngrams[i].split())
-        next_token = ngrams[i + 1].split()[-1]
+        ngram = tuple(ngrams[i].split()) # convert the ngram string to a tuple
+        next_token = ngrams[i + 1].split()[-1] # get the last token of the next ngram
         if ngram not in from_ngram_to_next_token_counts:
-            from_ngram_to_next_token_counts[ngram] = {}
+            from_ngram_to_next_token_counts[ngram] = {} # we start for our listing
         if next_token not in from_ngram_to_next_token_counts[ngram]:
             from_ngram_to_next_token_counts[ngram][next_token] = 0
         from_ngram_to_next_token_counts[ngram][next_token] += 1
@@ -59,7 +54,7 @@ def create_ngram_probs(ngram_counts) -> dict:
     """
     from_ngram_to_next_token_probs = {}
     for ngram, next_token_counts in ngram_counts.items():
-        total_count = sum(next_token_counts.values())
+        total_count = sum(next_token_counts.values()) # just a process of dividing the counts by the total count
         from_ngram_to_next_token_probs[ngram] = {next_token: count / total_count for next_token, count in next_token_counts.items()}
 
     return from_ngram_to_next_token_probs
@@ -72,7 +67,7 @@ def sample_next_token(ngram, from_ngram_to_next_token_probs):
     next_token_probs = from_ngram_to_next_token_probs[ngram]
     next_tokens = list(next_token_probs.keys())
     probs = list(next_token_probs.values()) # our weights
-    return random.choices(next_tokens, weights=probs)[0]
+    return random.choices(next_tokens, weights=probs)[0] # nice helper for use to use
 
 def generate_text_from_ngram(ngram, num_words, from_ngram_to_next_token_probs, gram_size=GRAM_SIZE) -> str:
     """
@@ -151,13 +146,13 @@ def main():
 
     # Lets try different ngram sizes
     sizes = [2, 3, 4]
-    for size in sizes:
+    for size in sizes: # we just repeat the process we have been doing throughout the tasks into a loop for diff sizes
         print(f"Generating text for {size}-grams")
         grams = create_grams(text, size)
         ngram_counts = create_ngram_counts(grams)
         ngram_probs = create_ngram_probs(ngram_counts)
         ngram = tuple(PHRASE[0:size])
-        generated_text = generate_text_from_ngram(ngram, num_words, ngram_probs, size)
+        generated_text = generate_text_from_ngram(ngram, 20, ngram_probs, size)
         print(f"Generated text: {generated_text}")
 
 
@@ -166,6 +161,7 @@ def main():
 #   | |/ _` / __| |/ /    | '_ \
 #   | | (_| \__ \   <     | (_) |
 #   |_|\__,_|___/_|\_\     \___/
+# The results of the survey can be seen on the README.md file.
 
 if __name__ == "__main__":
     main()
