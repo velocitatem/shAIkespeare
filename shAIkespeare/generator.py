@@ -6,6 +6,8 @@ In this assignment, you will build a text generation model that works with 2-gra
 import nltk
 from nltk.tokenize import RegexpTokenizer
 
+nltk.download('gutenberg')
+
 # Data Preparation: We load the works of William Shakespeare from the nltk corpus and preprocess the text.
 # Create a list of grams
 GRAM_SIZE = 2 # instructed to use ngrams but just in case we want to change it to trigrams or quadgrams
