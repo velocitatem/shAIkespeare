@@ -66,3 +66,5 @@ pytest tests.py
 ## 5 & 6 Testing various sized grams:
 Results from survey added to github link:
 ![Figure_1](https://github.com/user-attachments/assets/705caf4a-5e7a-4404-87c6-47de1c44a3f8)
+
+We can see a strong growing preference for the 4-gram sentences which do make much more sens, although the sample size was somewhat small.
